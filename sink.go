@@ -32,8 +32,8 @@ func (c *Client) DefaultSink() (*Sink, error) {
 }
 
 // SetDefaultSink sets the default sink.
-func (c *Client) SetDefaultSink(sinkIndex uint32, sinkName string) error {
-	return c.RawRequest(&proto.SetDefaultSink{SinkName: sinkName, SinkIndex: sinkIndex}, nil)
+func (c *Client) SetDefaultSink(sinkName string) error {
+	return c.RawRequest(&proto.SetDefaultSink{SinkName: sinkName}, nil)
 }
 
 // SetSinkPort sets port to the sink.

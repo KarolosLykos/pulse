@@ -718,10 +718,7 @@ type RemoveClientProplist struct {
 	Properties PropList // ignored
 }
 
-type SetDefaultSink struct {
-	SinkName  string
-	SinkIndex uint32
-}
+type SetDefaultSink struct{ SinkName string }
 type SetDefaultSource struct{ SourceName string }
 
 type SetPlaybackStreamName struct {
