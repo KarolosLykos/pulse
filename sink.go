@@ -54,11 +54,12 @@ func (c *Client) SinkMuteToggle(sinkIndex uint32, sinkName string) error {
 }
 
 // SetSinkVolume toggles mute on a sink.
-func (c *Client) SetSinkVolume(sinkIndex uint32, sinkName string, volume float32) error {
+func (c *Client) SetSinkVolume(sinkIndex uint32, sinkName string, volume float64) error {
+	//float64(s.info.ChannelVolumes[0]) / float64(proto.VolumeNorm) * 100.0
 	return c.RawRequest(&proto.SetSinkVolume{
 		SinkIndex:      sinkIndex,
 		SinkName:       sinkName,
-		ChannelVolumes: proto.ChannelVolumes{uint32(volume * 0xfffff)},
+		ChannelVolumes: proto.ChannelVolumes{uint32(volume * float64(proto.VolumeNorm) * 100.0)},
 	}, nil)
 }
 
@@ -93,8 +94,8 @@ func (s *Sink) SampleRate() int {
 }
 
 // Volume returns the sink volume.
-func (s *Sink) Volume() float32 {
-	return float32(s.info.ChannelVolumes[0] / 0xffff)
+func (s *Sink) Volume() float64 {
+	return float64(s.info.ChannelVolumes[0]) / float64(proto.VolumeNorm) * 100.0
 }
 
 // SinkIndex returns the sink index.
