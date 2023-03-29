@@ -1,6 +1,6 @@
 package pulse
 
-import "github.com/jfreymuth/pulse/proto"
+import "github.com/KarolosLykos/pulse/proto"
 
 // A RecordStream is used for recording audio.
 // When creating a stream, the user must provide a callback that will be called with the recorded audio data.

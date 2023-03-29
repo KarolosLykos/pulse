@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/jfreymuth/pulse"
+	"github.com/KarolosLykos/pulse"
 )
 
 func main() {

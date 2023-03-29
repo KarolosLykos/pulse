@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 package pulse
@@ -6,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jfreymuth/pulse"
+	"github.com/KarolosLykos/pulse"
 )
 
 func TestLoopback(t *testing.T) {

@@ -1,6 +1,6 @@
 package pulse
 
-import "github.com/jfreymuth/pulse/proto"
+import "github.com/KarolosLykos/pulse/proto"
 
 // A PlaybackStream is used for playing audio.
 // When creating a stream, the user must provide a callback that will be used to buffer audio data.

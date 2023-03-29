@@ -19,9 +19,9 @@ ENV CGO_ENABLED=0
 ENV PULSE_SERVER=unix:/run/pulse/native
 ENV PULSE_COOKIE=/run/pulse/.config/pulse/cookie
 
-RUN mkdir -p ${GOPATH}/src/github.com/jfreymuth/pulse
-COPY . ${GOPATH}/src/github.com/jfreymuth/pulse/
-WORKDIR ${GOPATH}/src/github.com/jfreymuth/pulse
+RUN mkdir -p ${GOPATH}/src/github.com/KarolosLykos/pulse
+COPY . ${GOPATH}/src/github.com/KarolosLykos/pulse/
+WORKDIR ${GOPATH}/src/github.com/KarolosLykos/pulse
 
 RUN go mod download
 RUN go build ./...

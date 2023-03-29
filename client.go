@@ -7,7 +7,7 @@ import (
 	"path"
 	"sync"
 
-	"github.com/jfreymuth/pulse/proto"
+	"github.com/KarolosLykos/pulse/proto"
 )
 
 // The Client is the connection to the pulseaudio server. An application typically only uses a single client.

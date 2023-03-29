@@ -1,6 +1,6 @@
 package pulse
 
-import "github.com/jfreymuth/pulse/proto"
+import "github.com/KarolosLykos/pulse/proto"
 
 // A Sink is an output device.
 type Sink struct {
@@ -29,6 +29,16 @@ func (c *Client) DefaultSink() (*Sink, error) {
 		return nil, err
 	}
 	return &sink, nil
+}
+
+// SetDefaultSink sets the default sink.
+func (c *Client) SetDefaultSink(sinkIndex uint32, sinkName string) error {
+	return c.RawRequest(&proto.SetDefaultSink{SinkName: sinkName, SinkIndex: sinkIndex}, nil)
+}
+
+// SetSinkPort sets port to the sink.
+func (c *Client) SetSinkPort(sinkIndex uint32, sinkName, port string) error {
+	return c.RawRequest(&proto.SetSinkPort{SinkIndex: sinkIndex, SinkName: sinkName, Port: port}, nil)
 }
 
 // SinkByID looks up a sink id.
@@ -62,7 +72,12 @@ func (s *Sink) SampleRate() int {
 }
 
 // SinkIndex returns the sink index.
-// This should only be used together with (*Cient).RawRequest.
+// This should only be used together with (*Client).RawRequest.
 func (s *Sink) SinkIndex() uint32 {
 	return s.info.SinkIndex
+}
+
+// Info is a helper method that exposes Sink properties.
+func (s *Sink) Info() proto.GetSinkInfoReply {
+	return s.info
 }
