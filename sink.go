@@ -2,6 +2,7 @@ package pulse
 
 import (
 	"github.com/KarolosLykos/pulse/proto"
+	"math"
 )
 
 // A Sink is an output device.
@@ -55,11 +56,10 @@ func (c *Client) SinkMuteToggle(sinkIndex uint32, sinkName string) error {
 
 // SetSinkVolume toggles mute on a sink.
 func (c *Client) SetSinkVolume(sinkIndex uint32, sinkName string, volume float64) error {
-	//float64(s.info.ChannelVolumes[0]) / float64(proto.VolumeNorm) * 100.0
 	return c.RawRequest(&proto.SetSinkVolume{
 		SinkIndex:      sinkIndex,
 		SinkName:       sinkName,
-		ChannelVolumes: proto.ChannelVolumes{uint32(volume * float64(proto.VolumeNorm) * 100.0)},
+		ChannelVolumes: proto.ChannelVolumes{uint32(math.Round(volume * float64(proto.VolumeNorm) / 100))},
 	}, nil)
 }
 
