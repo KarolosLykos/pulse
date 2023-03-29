@@ -1,6 +1,8 @@
 package pulse
 
-import "github.com/KarolosLykos/pulse/proto"
+import (
+	"github.com/KarolosLykos/pulse/proto"
+)
 
 // A Sink is an output device.
 type Sink struct {
@@ -41,6 +43,25 @@ func (c *Client) SetSinkPort(sinkIndex uint32, sinkName, port string) error {
 	return c.RawRequest(&proto.SetSinkPort{SinkIndex: sinkIndex, SinkName: sinkName, Port: port}, nil)
 }
 
+// SinkMuteToggle toggles mute on a sink.
+func (c *Client) SinkMuteToggle(sinkIndex uint32, sinkName string) error {
+	sink, err := c.DefaultSink()
+	if err != nil {
+		return err
+	}
+
+	return c.RawRequest(&proto.SetSinkMute{SinkIndex: sinkIndex, SinkName: sinkName, Mute: !sink.info.Mute}, nil)
+}
+
+// SetSinkVolume toggles mute on a sink.
+func (c *Client) SetSinkVolume(sinkIndex uint32, sinkName string, volume float32) error {
+	return c.RawRequest(&proto.SetSinkVolume{
+		SinkIndex:      sinkIndex,
+		SinkName:       sinkName,
+		ChannelVolumes: proto.ChannelVolumes{uint32(volume * 0xfffff)},
+	}, nil)
+}
+
 // SinkByID looks up a sink id.
 func (c *Client) SinkByID(name string) (*Sink, error) {
 	var sink Sink
@@ -69,6 +90,11 @@ func (s *Sink) Channels() proto.ChannelMap {
 // SampleRate returns the default sample rate.
 func (s *Sink) SampleRate() int {
 	return int(s.info.Rate)
+}
+
+// Volume returns the sink volume.
+func (s *Sink) Volume() float32 {
+	return float32(s.info.ChannelVolumes[0] / 0xffff)
 }
 
 // SinkIndex returns the sink index.
